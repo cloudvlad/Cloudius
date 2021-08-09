@@ -14,7 +14,7 @@ import os
 OW_API_KEY = str("899bc8d0cde16e4b2cde9f8874ef1141")
 CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
 ICONS_RESIZE = 90
-BACKGROUND_COLOR = "#E6E6E6"
+BACKGROUND_COLOR = "#E5E5E5"
 
 # Root window properties
 root = tk.Tk()
