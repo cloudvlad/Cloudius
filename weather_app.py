@@ -1,10 +1,8 @@
-import tkinter
 from PIL import ImageTk, Image
 import requests
 from tkinter import ttk
 from tkinter.font import BOLD
 import tkinter as tk
-import requests
 import time
 import json
 import os

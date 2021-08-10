@@ -1,0 +1,7 @@
+PIL
+requests
+tkinter
+time
+json
+os
+io 
