@@ -74,17 +74,17 @@ def weatherLookup():
         feels_like.config(text="Feels like " + weather['feels_like'] + CELSIUS_SYMBOL)
         description.config(text=weather['description'])
         temp_time = str(weather['sunrise'].tm_hour) + ":"
-        if int(weather['sunrise'].tm_hour) < 9:
+        if int(weather['sunrise'].tm_hour) <= 9:
             temp_time = '0' + temp_time
-        if int(weather['sunrise'].tm_min) < 9:
+        if int(weather['sunrise'].tm_min) <= 9:
             temp_time = temp_time + "0" + str(weather['sunrise'].tm_min)
         else:
             temp_time = temp_time + str(weather['sunrise'].tm_min)
         sunrise_time.config(text=temp_time)
         temp_time = str(weather['sunset'].tm_hour) + ":"
-        if int(weather['sunset'].tm_hour) < 9:
+        if int(weather['sunset'].tm_hour) <= 9:
             temp_time = '0' + temp_time
-        if int(weather['sunset'].tm_min) < 9:
+        if int(weather['sunset'].tm_min) <= 9:
             temp_time = temp_time + "0" + str(weather['sunset'].tm_min)
         else:
             temp_time = temp_time + str(weather['sunset'].tm_min)
