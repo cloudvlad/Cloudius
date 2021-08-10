@@ -10,8 +10,6 @@ import json
 import os
 
 # Global variables
-# Public API key for OpenWeather API, you may change it by your own key
-OW_API_KEY = str("899bc8d0cde16e4b2cde9f8874ef1141")
 CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
 ICONS_RESIZE = 90
 BACKGROUND_COLOR = "#E5E5E5"
@@ -43,7 +41,7 @@ def weatherLookup():
         return
 
     try:
-        api_request = requests.get(url1 + str(location) + url2 + OW_API_KEY)#os.getenv("OW_API_KEY)"
+        api_request = requests.get(url1 + str(location) + url2 + os.getenv("OW_API_KEY"))
         results = json.loads(api_request.content)
         #print(results)
         if results['cod'] == '404':
