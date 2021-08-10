@@ -11,8 +11,6 @@ import os
 from io import BytesIO
 
 # Global variables
-# Public API key for OpenWeather API, you may change it by your own key
-OW_API_KEY = str("899bc8d0cde16e4b2cde9f8874ef1141")
 CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
 ICONS_RESIZE = 90
 BACKGROUND_COLOR = "#E5E5E5"
@@ -42,7 +40,6 @@ url2 = "&appid="
 
 # Updating GUI
 def update():
-    print("work")
     weatherLookup()
     root.after(1000, update)
 
@@ -50,8 +47,8 @@ def update():
 def weatherLookup():
     location = str(lookupField.get())
     if len(location) == 0:
-        icon.configure(image=None)
-        icon.image = None
+        icon.configure(image="")
+        icon.image = ""
         description.config(text="")
         curr_temp.config(text="")
         feels_like.config(text="")
@@ -64,14 +61,15 @@ def weatherLookup():
         return
 
     try:
-        api_request = requests.get(url1 + str(location) + url2 + OW_API_KEY)#os.getenv("OW_API_KEY)"
+        api_request = requests.get(url1 + str(location) + url2 + os.getenv("OW_API_KEY"))
         results = json.loads(api_request.content)
-        
+
         if results['cod'] == '404':
             icon.configure(image=not_found_img)
             icon.image = not_found_img
             description.config(text="")
             curr_temp.config(text="Location not found")
+            curr_temp.config(font=("Arial", 20))
             feels_like.config(text="")
             sunrise_icon.config(image="")
             sunrise_icon.image = None
@@ -79,7 +77,6 @@ def weatherLookup():
             sunset_icon.image = ""
             sunrise_time.config(text="")
             sunset_time.config(text="")
-            print("Not found")
             return
 
         # Weather properties
@@ -98,6 +95,7 @@ def weatherLookup():
         icon.image = status_icon_img
         
         curr_temp.config(text=str(weather['temp']) + CELSIUS_SYMBOL)
+        curr_temp.config(font=("Arial", 30))
         feels_like.config(text="Feels like " + weather['feels_like'] + CELSIUS_SYMBOL)
         description.config(text=weather['description'])
         temp_time = str(weather['sunrise'].tm_hour) + ":"
@@ -164,5 +162,8 @@ sunrise_icon.configure(image=None)
 sunrise_icon.image = None
 sunset_icon.configure(image=None)
 sunset_icon.image = None
+
+
+update()
 
 root.mainloop()
