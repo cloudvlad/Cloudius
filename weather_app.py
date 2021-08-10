@@ -8,6 +8,7 @@ import requests
 import time
 import json
 import os
+from io import BytesIO
 
 # Global variables
 # Public API key for OpenWeather API, you may change it by your own key
@@ -27,46 +28,72 @@ root.grid_rowconfigure(0, weight=0)
 root.grid_columnconfigure(0, weight=1)
 
 
-
+not_found_img = ImageTk.PhotoImage(Image.open("./icons/not_found.png"))
 sunrise_img = ImageTk.PhotoImage(Image.open("./icons/sunrise.png").resize((ICONS_RESIZE, ICONS_RESIZE)))
 sunset_img = ImageTk.PhotoImage(Image.open("./icons/sunset.png").resize((ICONS_RESIZE, ICONS_RESIZE)))
 
+# The common part of the URL for status icons
+status_icons_url = "https://openweathermap.org/img/wn/"
+
+# API request separated
 url1 = "http://api.openweathermap.org/data/2.5/weather?q="
 url2 = "&appid="
 
+
+# Updating GUI
+def update():
+    print("work")
+    weatherLookup()
+    root.after(1000, update)
+
+# Fetch data from the API from OpenWeather
 def weatherLookup():
     location = str(lookupField.get())
     if len(location) == 0:
         icon.configure(image=None)
         icon.image = None
         description.config(text="")
+        curr_temp.config(text="")
+        feels_like.config(text="")
+        sunrise_icon.configure(image="")
+        sunrise_icon.image = ""
+        sunset_icon.configure(image="")
+        sunset_icon.image = ""
+        sunrise_time.config(text="")
+        sunset_time.config(text="")
         return
 
     try:
         api_request = requests.get(url1 + str(location) + url2 + OW_API_KEY)#os.getenv("OW_API_KEY)"
         results = json.loads(api_request.content)
-        #print(results)
+        
         if results['cod'] == '404':
-            icon.configure(image=None)
-            icon.image = None
-            sunrise_icon.configure(image=None)
+            icon.configure(image=not_found_img)
+            icon.image = not_found_img
+            description.config(text="")
+            curr_temp.config(text="Location not found")
+            feels_like.config(text="")
+            sunrise_icon.config(image="")
             sunrise_icon.image = None
-            sunset_icon.configure(image=None)
-            sunset_icon.image = None
-            description.config(text="Location not found")
+            sunset_icon.config(image="")
+            sunset_icon.image = ""
+            sunrise_time.config(text="")
+            sunset_time.config(text="")
+            print("Not found")
             return
 
         # Weather properties
         weather = dict()
         weather['id'] = results['weather'][0]['id']
         weather['description'] = str(results['weather'][0]['description']).capitalize()
-        weather['status_icon'] = results['weather'][0]['icon']
+        weather['status_icon'] = str(results['weather'][0]['icon'] + "@4x.png")
         weather['temp'] = str(int(float(results['main']['temp']) - 273.15))
         weather['feels_like'] = str(round(float(results['main']['feels_like']) - 273.15))
         weather['sunrise'] =  time.localtime(int(results['sys']['sunrise']))
         weather['sunset'] = time.localtime(int(results['sys']['sunset']))
-    
-        status_icon_img = ImageTk.PhotoImage(Image.open("./icons/" + weather['status_icon'] + ".png"))
+
+
+        status_icon_img = ImageTk.PhotoImage(Image.open(BytesIO((requests.get(status_icons_url + weather['status_icon'])).content)))
         icon.configure(image=status_icon_img)
         icon.image = status_icon_img
         
@@ -94,6 +121,8 @@ def weatherLookup():
         sunrise_icon.image = sunrise_img
         sunset_icon.configure(image=sunset_img)
         sunset_icon.image = sunset_img
+
+        
 
     except:
         description.config(text="Error...")
@@ -127,7 +156,7 @@ sunset_time.place(x=272, y=455)#grid(row=6, column=2, rowspan=2, sticky="S", pad
 
 # Additional widget settings
 lookupField.insert(0, "Ruse, BG")
-lookupField.bind("<Return>", (lambda event: weatherLookup()))
+lookupField.bind("<Return>", (lambda event: update()))
 icon.grid_rowconfigure(1, weight=1)
 icon.grid_columnconfigure(1, weight=1)
 
