@@ -1,5 +1,4 @@
 import tkinter, requests, time, json, os, math
-from typing import Collection
 from tkinter.constants import DISABLED, END
 import tkinter as tk
 from PIL import ImageTk, Image
