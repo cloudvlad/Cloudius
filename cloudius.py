@@ -19,7 +19,7 @@ weather = dict()
 wind_scale = list()
 eight_wind_directions = dict()
 ow_api_key = ""
-welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with your wishes searching\n by city name but sometimes needs\n country, because as people sometimes we \nare not very creative."
+welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with your wishes searching\n by city name but sometimes needs\n country, because as people, rarely we \nare not very creative."
 
 
 # Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
