@@ -19,8 +19,7 @@ weather = dict()
 wind_scale = list()
 eight_wind_directions = dict()
 ow_api_key = ""
-welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with your wishes searching\n by city name but sometimes needs\n country, because as people, rarely we \nare not very creative."
-
+welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with your wishes searching\n by city name but sometimes needs\n country, just to be sure."
 
 # Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
 def load_beaufor_scale() -> None:
@@ -154,7 +153,6 @@ def add_api_key(api_key: str):
         api_keys_filename = "api_keys"
         with open(api_keys_filename, "a") as f:
             f.write(api_key + "\n")
-        
 
     # For windows set file attribute.
     if os.name == "nt":
@@ -251,7 +249,6 @@ def get_pref_location():
     location = file.readline().strip("\n")
     file.close()
     return location
-
 
 def main():
     global ow_api_key
@@ -464,9 +461,6 @@ def main():
 
     update()
     root.mainloop()
-
-
-
 
 if __name__ == "__main__":
     main()
