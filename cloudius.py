@@ -12,14 +12,17 @@ CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
 ICONS_RESIZE = 90
 BACKGROUND_COLOR = "#E4D4C9" #Other colors: #FCDBC5 #90BBBD
 
-settings_icon = Image.open("./icons/settings.ico")
-logo = Image.open("./icons/icon.ico")
+
+
+settings_icon = Image.open("./icons/settings.png")
+logo = Image.open("./icons/icon.png")
 
 weather = dict()
 wind_scale = list()
 eight_wind_directions = dict()
 ow_api_key = ""
-welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with your wishes searching\n by city name but sometimes needs\n country, just to be sure."
+welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure he \ndid not misunderstood."
+instructions = "The only thing that you have to do is to \nenter API key(s) at OpenWeather. \nAnd you are ready to go!"
 
 # Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
 def load_beaufor_scale() -> None:
@@ -134,15 +137,14 @@ def check_api_key(api_key: str) -> bool:
         return True
     return False
 
-def add_api_key(api_key: str):
+def add_api_key(api_key: str) -> None:
     global ow_api_key
     ow_api_key = api_key
     home_dir = os.path.expanduser("~")
     os.chdir(home_dir)
 
-    if not check_api_key(api_key):
+    if api_key == "":
         return
-
     if os.name != "nt":
         app_dir = ".cloudius"
         app_dir_path = os.path.join(home_dir, app_dir)
@@ -154,7 +156,7 @@ def add_api_key(api_key: str):
         with open(api_keys_filename, "a") as f:
             f.write(api_key + "\n")
 
-    # For windows set file attribute.
+    # For Windows set file attribute.
     if os.name == "nt":
         app_dir = ".cloudius"
         app_dir_path = os.path.join(home_dir, app_dir)
@@ -171,6 +173,8 @@ def add_api_key(api_key: str):
 
 class ShowKeys:
     def __init__(self, root):
+        if os.path.exists(os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys")) == False:
+            return
         keys = (open(os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys"), "r")).readlines()
         for i in range(0, len(keys)):
             self.e = ttk.Entry(root, width=36, font=("Arial", 12, BOLD), justify="center")
@@ -179,6 +183,8 @@ class ShowKeys:
 
 def show_keys(root: tkinter.Tk):
     table = tk.Toplevel(root)
+    icon = ImageTk.PhotoImage(settings_icon)
+    table.iconphoto(False, icon)
     scrollbar = ttk.Scrollbar(table)
     table.geometry("330x300")
     ShowKeys(table)
@@ -187,7 +193,7 @@ def manage_api_keys(root: tkinter.Tk) -> None:
     form = tk.Toplevel(root)
     form.title("API Keys Menagement")
     icon = ImageTk.PhotoImage(settings_icon)
-    form.wm_iconphoto(False, icon)
+    form.iconphoto(False, icon)
     form.geometry("400x200")
 
     input_label = ttk.Label(form, text="Insert your API key from OpenWeather")
@@ -202,9 +208,11 @@ def manage_api_keys(root: tkinter.Tk) -> None:
     delete_btn.pack(pady=(10, 0))
     show_btn.pack(pady=(10, 0))
 
-def delete_api_key(api_key: str):
+def delete_api_key(api_key: str) -> None:
     api_keys_file = os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys")
     
+    if os.path.exists(api_keys_file) == False:
+        return
     old_keys = open(api_keys_file, "r")
     lines = old_keys.readlines()
     old_keys.close()
@@ -217,15 +225,24 @@ def delete_api_key(api_key: str):
     new_keys.close()
 
 def get_api_key() -> str:
-    keys = (open(os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys"), "r")).readlines()
+    program_dir = os.getcwd()
+    home = os.path.expanduser("~")
+    if os.path.exists(os.path.join(home, ".cloudius", "api_keys")) == False:
+        return ""
+    file = open(os.path.join(home, ".cloudius", "api_keys"), "r")
+    keys = file.readlines()
+    file.close()
     ow_api_key = ""
     for key in keys:
         if check_api_key(key.strip("\n")):
             ow_api_key = key.strip("\n")
             break
+
+    os.chdir(program_dir)
     return ow_api_key
 
 def add_pref_location(location: str) -> None:
+    program_dir = os.getcwd()
     home_dir = os.path.expanduser("~")
     os.chdir(home_dir)
         
@@ -238,22 +255,23 @@ def add_pref_location(location: str) -> None:
     filename = "pref_location"
     with open(filename, "w") as f:
         f.write(location + "\n")
+    os.chdir(program_dir)
 
-def get_pref_location():
-    path = os.path.join(os.path.expanduser("~"), ".cloudius", "pref_location")
-    if os.path.exists(path) == False:
-        print("nope")
-        return
-
-    file = open(path, "r")
-    location = file.readline().strip("\n")
+def get_pref_location() -> str:
+    program_dir = os.getcwd()
+    home = os.path.expanduser("~")
+    if os.path.exists(os.path.join(home, ".cloudius", "pref_location")) == False:
+        return ""
+    file = open(os.path.join(home, ".cloudius", "pref_location"), "r")
+    location = file.readline()
     file.close()
+    os.chdir(program_dir)
     return location
-
+    
 def main():
     global ow_api_key
     ow_api_key = get_api_key()
-    pref_location = get_pref_location()
+    pref_location = get_pref_location().strip("\n")
 
     # Root window properties
     root = tk.Tk()
@@ -261,7 +279,7 @@ def main():
     root.geometry("400x800")
     root.resizable(False, False)
     icon = ImageTk.PhotoImage(logo)
-    root.wm_iconphoto(False, icon)
+    root.iconphoto(False, icon)
     root.configure(background=BACKGROUND_COLOR)
     root.grid_rowconfigure(0, weight=0)
     root.grid_columnconfigure(0, weight=1)
@@ -307,7 +325,7 @@ def main():
             wind_icon.configure(image="")
             wind_icon.image = ""
             wind_speed.config(text="")
-            wind_description.config(text="")
+            wind_description.config(text=instructions)
             return
 
         try:
@@ -399,10 +417,10 @@ def main():
             wind_speed.config(text=str(weather['wind_speed']) + "m/s " + weather['wind_direction'])
 
         except:
-            icon.configure(image="")
-            icon.image = ""
-            description.config(text="Error...")
-            curr_temp.config(text="")
+            icon.configure(image=not_found_img)
+            icon.image = not_found_img
+            description.config(text="")
+            curr_temp.config(text="Connection error!", font=("Arial", 20))
             feels_like.config(text="")
             sunrise_icon.configure(image="")
             sunrise_icon.image = ""
