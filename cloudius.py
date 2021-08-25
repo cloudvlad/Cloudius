@@ -22,7 +22,7 @@ wind_scale = list()
 eight_wind_directions = dict()
 ow_api_key = ""
 welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure he \ndid not misunderstood."
-instructions = "The only thing that you have to do is to \nenter API key(s) at OpenWeather. \nAnd you are ready to go!"
+instructions = "The only thing that you have to do is to \nenter API key(s) from OpenWeather. \nAnd you are ready to go!"
 
 # Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
 def load_beaufor_scale() -> None:
@@ -347,6 +347,7 @@ def main():
                 sunset_time.config(text="")
                 wind_icon.config(image="")
                 wind_icon.image = ""
+                wind_speed.config(text="")
                 wind_description.config(text="")
                 return
             description.config(font=("Arial", 11, "normal"))
