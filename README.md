@@ -16,7 +16,6 @@
 * [Usage](#usage)
 * [Features](#features)
 * [Technologies Used](#technologies-used)
-* [Room for Improvement](#room-for-improvement)
 
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
@@ -24,7 +23,9 @@
 
 ## 📃 General Info
 
-Cloudius has simple user interface and the most important information that most of the people need. The only thing that the user have to do is to make account in OpenWeather and insert their API key(s).
+Cloudius has simple user interface and the most important information that people need. The only thing that the user has to do is to make account in OpenWeather and insert their API key(s).
+
+
 
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
@@ -44,23 +45,25 @@ Cloudius has simple user interface and the most important information that most 
 
 
 ## ⚙️ Setup
-- Repository cloning
-- Executable files
-<p>There are no additional</p>
+- Clone the project repository
+- Run <kbd>pip install -r requirements.txt</kbd> (Python 2), or <kbd>pip3 install -r requirements.txt</kbd> (Python 3)
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
 ## 🔧 Usage
 
+ #### **Executable file:** Go to the directory, where executable is placed, and run <kbd>./cloudius</kbd>.
+ #### **All project files:** Go to the project directory and run<kbd>./python3 ./cloudius.py</kbd>
+
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
 ## 🗝 Features
-- Dispplay weather info + video.gif
-- API keys management + video.gif
-- Favorite location + video.gif
+- Dispplay weather information
+- API keys management
+- Favorite location
 
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
@@ -75,9 +78,5 @@ Cloudius has simple user interface and the most important information that most 
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## Room for Improvement
-
-
-
-
-
+<h4 style="font-weight: bold; color: #D19400"> Warning: Currently the program is available for Linux based OS!
+</h4>
