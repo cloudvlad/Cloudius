@@ -10,12 +10,12 @@
 </p>
 
 ## Table of Contents
-*  [:page_with_curl: General Information](#general-information)
-*  [:camera_with_flash: Screenshots](#screenshots)
-*  [:gear: Setup](#setup)
-*  [:wrench: Usage](#usage)
-*  [:old_key: Features](#features)
-*  [:telescope: Technologies Used](#technologies-used)
+*  [:page_with_curl: General Information](#page_with_curl-general-information)
+*  [:camera_flash: Screenshots](#camera_flash-screenshots)
+*  [:gear: Setup](#gear-setup)
+*  [:wrench: Usage](#wrench-usage)
+*  [:old_key: Features](#old_key-features)
+*  [:telescope: Technologies Used](#telescope-technologies-used)
 
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
@@ -31,7 +31,7 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## :camera_with_flash: Screenshots
+## :camera_flash: Screenshots
 <p align="center">
 <img alt="YAP" width="40%" src="https://i.imgur.com/98h3uaG.png">
 <img alt="YAP" width="40%" src="https://i.imgur.com/HfnD8zc.png">
