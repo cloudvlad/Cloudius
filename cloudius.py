@@ -21,8 +21,8 @@ weather = dict()
 wind_scale = list()
 eight_wind_directions = dict()
 ow_api_key = ""
-welcome_msg = "This is Cloudius, \nyour weather app friend! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure he \ndid not misunderstood."
-instructions = "The only thing that you have to do is to \nenter API key(s) from OpenWeather. \nAnd you are ready to go!"
+welcome_msg = "This is Cloudius, \nyour weather app assistant! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure there is no uncertainty."
+instructions = "The only thing you have to do is to \nenter API key(s) from OpenWeather. \nAnd you are ready to go!"
 
 # Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
 def load_beaufor_scale() -> None:
@@ -183,16 +183,19 @@ class ShowKeys:
 
 def show_keys(root: tkinter.Tk):
     table = tk.Toplevel(root)
+    table.title("API Keys")
     icon = ImageTk.PhotoImage(settings_icon)
     table.iconphoto(False, icon)
+    table.resizable(False, False)
     scrollbar = ttk.Scrollbar(table)
     table.geometry("330x300")
     ShowKeys(table)
 
 def manage_api_keys(root: tkinter.Tk) -> None:
     form = tk.Toplevel(root)
-    form.title("API Keys Menagement")
+    form.title("API Keys Management")
     icon = ImageTk.PhotoImage(settings_icon)
+    form.resizable(False, False)
     form.iconphoto(False, icon)
     form.geometry("400x200")
 
