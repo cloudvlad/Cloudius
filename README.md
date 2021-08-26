@@ -10,18 +10,18 @@
 </p>
 
 ## Table of Contents
-* [General Info](#general-information)
-* [Screenshots](#screenshots)
-* [Setup](#setup)
-* [Usage](#usage)
-* [Features](#features)
-* [Technologies Used](#technologies-used)
+*  [:page_with_curl: General Information](#general-information)
+*  [:camera_with_flash: Screenshots](#screenshots)
+*  [:gear: Setup](#setup)
+*  [:wrench: Usage](#usage)
+*  [:old_key: Features](#features)
+*  [:telescope: Technologies Used](#technologies-used)
 
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## 📃 General Info
+## :page_with_curl: General Information
 
 Cloudius has simple user interface and the most important information that people need. The only thing that the user has to do is to make account in OpenWeather and insert their API key(s).
 
@@ -31,7 +31,7 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## 📸 Screenshots
+## :camera_with_flash: Screenshots
 <p align="center">
 <img alt="YAP" width="40%" src="https://i.imgur.com/98h3uaG.png">
 <img alt="YAP" width="40%" src="https://i.imgur.com/HfnD8zc.png">
@@ -43,15 +43,14 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-
-## ⚙️ Setup
+## :gear: Setup
 - Clone the project repository
 - Run <kbd>pip install -r requirements.txt</kbd> (Python 2), or <kbd>pip3 install -r requirements.txt</kbd> (Python 3)
 <p align="center">
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## 🔧 Usage
+## :wrench: Usage
 
  #### **Executable file:** Go to the directory, where executable is placed, and run <kbd>./cloudius</kbd>.
  #### **All project files:** Go to the project directory and run<kbd>./python3 ./cloudius.py</kbd>
@@ -60,7 +59,7 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## 🗝 Features
+## :old_key: Features
 - Dispplay weather information
 - API keys management
 - Favorite location
@@ -69,7 +68,7 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-## 🔭 Technologies Used
+## :telescope: Technologies Used
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
 - [Python3](https://www.python.org/)
 - [OpenWeather API](https://openweathermap.org/)
@@ -78,5 +77,5 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
 </p>
 
-<h4 style="font-weight: bold; color: #D19400"> Warning: Currently the program is available for Linux based OS!
-</h4>
+:warning: **Warning: Currently the program is available ONLY for Linux based OS!**
+
