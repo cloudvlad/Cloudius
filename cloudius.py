@@ -6,6 +6,7 @@ from tkinter import Toplevel, ttk
 from tkinter.font import BOLD
 from io import BytesIO
 from requests import api
+import sys
 
 # Constants
 CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
@@ -277,7 +278,8 @@ def main():
     pref_location = get_pref_location().strip("\n")
 
     # Root window properties
-    root = tk.Tk()
+    root = tk.Tk(className="Cloudius")
+    root.bind('<Control-z>', quit)
     root.title("Cloudius")
     root.geometry("400x800")
     root.resizable(False, False)
@@ -286,7 +288,7 @@ def main():
     root.configure(background=BACKGROUND_COLOR)
     root.grid_rowconfigure(0, weight=0)
     root.grid_columnconfigure(0, weight=1)
-
+    
     wind_p_img = Image.open("./icons/wind_p.png").resize((ICONS_RESIZE - 60, ICONS_RESIZE - 60))
     wind_x_img = Image.open("./icons/wind_x.png").resize((ICONS_RESIZE - 60, ICONS_RESIZE - 60))
 
@@ -485,4 +487,8 @@ def main():
     root.mainloop()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('Interrupted')
+        
