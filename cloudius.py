@@ -8,6 +8,9 @@ from io import BytesIO
 from requests import api
 import sys
 
+from initial_data_load import *
+from user_tweeks_methods import *
+
 # Constants
 CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
 ICONS_RESIZE = 90
@@ -19,106 +22,11 @@ settings_icon = Image.open("./icons/settings.png")
 logo = Image.open("./icons/icon.png")
 
 weather = dict()
-wind_scale = list()
-eight_wind_directions = dict()
 ow_api_key = ""
 welcome_msg = "This is Cloudius, \nyour weather app assistant! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure there is no uncertainty."
 instructions = "The only thing you have to do is to \nenter API key(s) from OpenWeather. \nAnd you are ready to go!"
 
-# Beaufor (wind) scale (https://en.wikipedia.org/wiki/Beaufort_scale) (the unit is meter/second)
-def load_beaufor_scale() -> None:
-    # 0
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 0.0
-    wind_scale_section['max'] = 0.4
-    wind_scale_section['description'] = "Calm"
-    wind_scale.append(wind_scale_section)
-    # 1
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 0.5
-    wind_scale_section['max'] = 1.5
-    wind_scale_section['description'] = "Light air"
-    wind_scale.append(wind_scale_section)
-    # 2
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 1.6
-    wind_scale_section['max'] = 3.3
-    wind_scale_section['description'] = "Light breeze"
-    wind_scale.append(wind_scale_section)
-    # 3
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 3.4
-    wind_scale_section['max'] = 5.4
-    wind_scale_section['description'] = "Gentle breeze"
-    wind_scale.append(wind_scale_section)
-    # 4
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 5.5
-    wind_scale_section['max'] = 7.9
-    wind_scale_section['description'] = "Moderate breeze"
-    wind_scale.append(wind_scale_section)
-    # 5
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 8.0
-    wind_scale_section['max'] = 10.7
-    wind_scale_section['description'] = "Fresh breeze"
-    wind_scale.append(wind_scale_section)
-    # 6
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 10.8
-    wind_scale_section['max'] = 13.8
-    wind_scale_section['description'] = "Strong breeze"
-    wind_scale.append(wind_scale_section)
-    # 7
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 13.9
-    wind_scale_section['max'] = 17.1
-    wind_scale_section['description'] = "Moderate gale"
-    wind_scale.append(wind_scale_section)
-    # 8
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 17.2
-    wind_scale_section['max'] = 20.7
-    wind_scale_section['description'] = "Fresh gale"
-    wind_scale.append(wind_scale_section)
-    # 9
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 20.8
-    wind_scale_section['max'] = 24.4
-    wind_scale_section['description'] = "Strong gale"
-    wind_scale.append(wind_scale_section)
-    # 10
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 24.5
-    wind_scale_section['max'] = 28.4
-    wind_scale_section['description'] = "Whole gale"
-    wind_scale.append(wind_scale_section)
-    # 11
-    wind_scale_section = dict()
-    wind_scale_section['min'] = 28.5
-    wind_scale_section['max'] = 32.6
-    wind_scale_section['description'] = "Violent storm"
-    wind_scale.append(wind_scale_section)
-    # 12 
-    """
-    wind_scale_section['min'] = 32.7
-    wind_scale_section['max'] = 
-    wind_scale_section['description'] = "Hurricane force"
-    wind_scale.append(wind_scale_section)
-    """
 load_beaufor_scale()
-
-# Cardinal(4) and ordinal(4) directions
-def load_eight_wind_directions() -> None:
-    eight_wind_directions[0]="N"
-    eight_wind_directions[1]="NE"
-    eight_wind_directions[2]="E"
-    eight_wind_directions[3]="SE"
-    eight_wind_directions[4]="S"
-    eight_wind_directions[5]="SW"
-    eight_wind_directions[6]="W"
-    eight_wind_directions[7]="NW"
-    eight_wind_directions[8]="N"
 load_eight_wind_directions()
 
 # Transforms wind angle direction in cardinal or ordinal direction (0deg = N(North))
@@ -172,106 +80,6 @@ def add_api_key(api_key: str) -> None:
 
     return api_key
 
-class ShowKeys:
-    def __init__(self, root):
-        if os.path.exists(os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys")) == False:
-            return
-        keys = (open(os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys"), "r")).readlines()
-        for i in range(0, len(keys)):
-            self.e = ttk.Entry(root, width=36, font=("Arial", 12, BOLD), justify="center")
-            self.e.grid(row=i, column=0)
-            self.e.insert(END, keys[i].strip("\n"))
-
-def show_keys(root: tkinter.Tk):
-    table = tk.Toplevel(root)
-    table.title("API Keys")
-    icon = ImageTk.PhotoImage(settings_icon)
-    table.iconphoto(False, icon)
-    table.resizable(False, False)
-    scrollbar = ttk.Scrollbar(table)
-    table.geometry("330x300")
-    ShowKeys(table)
-
-def manage_api_keys(root: tkinter.Tk) -> None:
-    form = tk.Toplevel(root)
-    form.title("API Keys Management")
-    icon = ImageTk.PhotoImage(settings_icon)
-    form.resizable(False, False)
-    form.iconphoto(False, icon)
-    form.geometry("400x200")
-
-    input_label = ttk.Label(form, text="Insert your API key from OpenWeather")
-    input_field = ttk.Entry(form, width=36)
-    add_btn = ttk.Button(form, text="Add key", command=(lambda: add_api_key(input_field.get())))
-    delete_btn = ttk.Button(form, text="Delete key", command=(lambda: delete_api_key(input_field.get())))
-    show_btn = ttk.Button(form, text="Show keys", command=(lambda: show_keys(root)))
-
-    input_label.pack(pady=(20, 0))
-    input_field.pack(pady=(10, 0))
-    add_btn.pack(pady=(10, 0))
-    delete_btn.pack(pady=(10, 0))
-    show_btn.pack(pady=(10, 0))
-
-def delete_api_key(api_key: str) -> None:
-    api_keys_file = os.path.join(os.path.expanduser("~"), ".cloudius", "api_keys")
-    
-    if os.path.exists(api_keys_file) == False:
-        return
-    old_keys = open(api_keys_file, "r")
-    lines = old_keys.readlines()
-    old_keys.close()
-
-    new_keys = open(api_keys_file, "w")
-    for line in lines:
-        if line.strip("\n") != api_key:
-            new_keys.write(line)
-
-    new_keys.close()
-
-def get_api_key() -> str:
-    program_dir = os.getcwd()
-    home = os.path.expanduser("~")
-    if os.path.exists(os.path.join(home, ".cloudius", "api_keys")) == False:
-        return ""
-    file = open(os.path.join(home, ".cloudius", "api_keys"), "r")
-    keys = file.readlines()
-    file.close()
-    ow_api_key = ""
-    for key in keys:
-        if check_api_key(key.strip("\n")):
-            ow_api_key = key.strip("\n")
-            break
-
-    os.chdir(program_dir)
-    return ow_api_key
-
-def add_pref_location(location: str) -> None:
-    program_dir = os.getcwd()
-    home_dir = os.path.expanduser("~")
-    os.chdir(home_dir)
-        
-    app_dir = ".cloudius"
-    app_dir_path = os.path.join(home_dir, app_dir)
-    if os.path.exists(app_dir) == False:
-        os.makedirs(app_dir)
-    
-    os.chdir(app_dir_path)
-    filename = "pref_location"
-    with open(filename, "w") as f:
-        f.write(location + "\n")
-    os.chdir(program_dir)
-
-def get_pref_location() -> str:
-    program_dir = os.getcwd()
-    home = os.path.expanduser("~")
-    if os.path.exists(os.path.join(home, ".cloudius", "pref_location")) == False:
-        return ""
-    file = open(os.path.join(home, ".cloudius", "pref_location"), "r")
-    location = file.readline()
-    file.close()
-    os.chdir(program_dir)
-    return location
-    
 def main():
     global ow_api_key
     ow_api_key = get_api_key()

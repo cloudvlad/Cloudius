@@ -6,7 +6,7 @@
 ### Cloudius is GUI weather software that uses OpenWeather data by connecting trought personal API.
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## Table of Contents
@@ -18,7 +18,7 @@
 *  [:telescope: Technologies Used](#telescope-technologies-used)
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## :page_with_curl: General Information
@@ -28,26 +28,26 @@ Cloudius has simple user interface and the most important information that peopl
 
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="--line-separator-">
 </p>
 
 ## :camera_flash: Screenshots
 <p align="center">
-<img alt="YAP" width="40%" src="https://i.imgur.com/98h3uaG.png">
-<img alt="YAP" width="40%" src="https://i.imgur.com/HfnD8zc.png">
-<img alt="YAP" width="80%" src="https://i.imgur.com/ocuarsq.png">
+<img alt="App greetings screen" width="40%" src="https://i.imgur.com/98h3uaG.png">
+<img alt="Usage example 1" width="40%" src="https://i.imgur.com/HfnD8zc.png">
+<img alt="Usage example 2" width="80%" src="https://i.imgur.com/ocuarsq.png">
 
 </p>
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## :gear: Setup
 - Clone the project repository
 - Run <kbd>pip install -r requirements.txt</kbd> (Python 2), or <kbd>pip3 install -r requirements.txt</kbd> (Python 3)
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## :wrench: Usage
@@ -56,7 +56,7 @@ Cloudius has simple user interface and the most important information that peopl
  #### **All project files:** Go to the project directory and run<kbd>./python3 ./cloudius.py</kbd>
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## :old_key: Features
@@ -65,7 +65,7 @@ Cloudius has simple user interface and the most important information that peopl
 - Favorite location
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 ## :telescope: Technologies Used
@@ -74,7 +74,7 @@ Cloudius has simple user interface and the most important information that peopl
 - [OpenWeather API](https://openweathermap.org/)
 
 <p align="center">
-  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="---------------------------------------">
+  <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
 :warning: **Warning: Currently the program is available ONLY for Linux based OS!**
