@@ -1,3 +1,6 @@
+""" Statically loaded data """
+
+
 wind_scale = list()
 eight_wind_directions = dict()
 

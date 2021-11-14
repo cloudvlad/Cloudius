@@ -12,73 +12,18 @@ from initial_data_load import *
 from user_tweeks_methods import *
 
 # Constants
-CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
-ICONS_RESIZE = 90
-BACKGROUND_COLOR = "#E4D4C9" #Other colors: #FCDBC5 #90BBBD
-
-
-
 settings_icon = Image.open("./icons/settings.png")
 logo = Image.open("./icons/icon.png")
-
-weather = dict()
-ow_api_key = ""
+CELSIUS_SYMBOL = u'\N{DEGREE SIGN}' + "C"
+BACKGROUND_COLOR = "#E4D4C9" #Other colors: #FCDBC5 #90BBBD
 welcome_msg = "This is Cloudius, \nyour weather app assistant! \n\nHe can help with some weather searching\n by city name but sometimes needs\n country, just to be sure there is no uncertainty."
 instructions = "The only thing you have to do is to \nenter API key(s) from OpenWeather. \nAnd you are ready to go!"
 
-load_beaufor_scale()
-load_eight_wind_directions()
+ICONS_RESIZE = 90
 
-# Transforms wind angle direction in cardinal or ordinal direction (0deg = N(North))
-def calculate_wind_direction(deg: int) -> int:
-    index =  float(deg) / 45.0
-    down = math.floor(index)
-    up = math.ceil(index)
-    if index - down <= up - index:
-        return down
-    else:
-        return up
+weather = dict()
+ow_api_key = ""
 
-def check_api_key(api_key: str) -> bool:
-    api_request = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Sofia, BG&appid=" + api_key)
-    results = json.loads(api_request.content)
-    if results['cod'] == 200:
-        return True
-    return False
-
-def add_api_key(api_key: str) -> None:
-    global ow_api_key
-    ow_api_key = api_key
-    home_dir = os.path.expanduser("~")
-    os.chdir(home_dir)
-
-    if api_key == "":
-        return
-    if os.name != "nt":
-        app_dir = ".cloudius"
-        app_dir_path = os.path.join(home_dir, app_dir)
-        if os.path.exists(app_dir) == False:
-            os.makedirs(app_dir_path)
-        
-        os.chdir(app_dir_path)
-        api_keys_filename = "api_keys"
-        with open(api_keys_filename, "a") as f:
-            f.write(api_key + "\n")
-
-    # For Windows set file attribute.
-    if os.name == "nt":
-        app_dir = ".cloudius"
-        app_dir_path = os.path.join(home_dir, app_dir)
-        if os.path.exists(app_dir) == False:
-            os.makedirs(app_dir_path)
-            os.system("attrib +h app_dir_path")
-        
-        os.chdir(app_dir_path)
-        api_keys_filename = "api_keys"
-        with open(api_keys_filename, "a") as f:
-            f.write(api_key + "\n")
-
-    return api_key
 
 def main():
     global ow_api_key
@@ -294,9 +239,67 @@ def main():
     update()
     root.mainloop()
 
+load_beaufor_scale()
+
+load_eight_wind_directions()
+
+# Transforms wind angle direction in cardinal or ordinal direction (0deg = N(North))
+def calculate_wind_direction(deg: int) -> int:
+    index =  float(deg) / 45.0
+    down = math.floor(index)
+    up = math.ceil(index)
+    if index - down <= up - index:
+        return down
+    else:
+        return up
+
+# Check if the API key is valid(can retrieve information)
+def check_api_key(api_key: str) -> bool:
+    api_request = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Sofia, BG&appid=" + api_key)
+    results = json.loads(api_request.content)
+    if results['cod'] == 200:
+        return True
+    return False
+
+# Add user's API key(s)
+def add_api_key(api_key: str) -> None:
+    global ow_api_key
+    ow_api_key = api_key
+    home_dir = os.path.expanduser("~")
+    os.chdir(home_dir)
+
+    if api_key == "":
+        return
+
+    if os.name != "nt":
+        app_dir = ".cloudius"
+        app_dir_path = os.path.join(home_dir, app_dir)
+        if os.path.exists(app_dir) == False:
+            os.makedirs(app_dir_path)
+        
+        os.chdir(app_dir_path)
+        api_keys_filename = "api_keys"
+        with open(api_keys_filename, "a") as f:
+            f.write(api_key + "\n")
+
+    # For Windows set file attribute.
+    if os.name == "nt":
+        app_dir = ".cloudius"
+        app_dir_path = os.path.join(home_dir, app_dir)
+        if os.path.exists(app_dir) == False:
+            os.makedirs(app_dir_path)
+            os.system("attrib +h app_dir_path")
+        
+        os.chdir(app_dir_path)
+        api_keys_filename = "api_keys"
+        with open(api_keys_filename, "a") as f:
+            f.write(api_key + "\n")
+
+    return api_key
+
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print('Interrupted')
+        print('Goodbye!')
         
