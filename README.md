@@ -77,5 +77,3 @@ Cloudius has simple user interface and the most important information that peopl
   <img src="https://i.imgur.com/RWwb4aN.png" width="100%" alt="-line-separator-">
 </p>
 
-:warning: **Warning: Currently the program is available ONLY for Linux based OS!**
-
