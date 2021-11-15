@@ -32,7 +32,7 @@ def main():
 
     # Root window properties
     root = tk.Tk(className="Cloudius")
-    root.bind('<Control-z>', quit)
+    root.bind('<Control-C>', sys.exit)
     root.title("Cloudius")
     root.geometry("400x800")
     root.resizable(False, False)
