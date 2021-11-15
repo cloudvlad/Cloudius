@@ -1,5 +1,6 @@
-test.py
-response.txt
-one_file/
 env/
 __pycache__/
+*.spec
+build/
+dist/
+cloudius
